@@ -67,7 +67,7 @@ private ArrayList<Menu> menus;
         menus = new ArrayList<>();
 
         for (int i=0;i<dataNama.length; i++){
-            Menu menu =new Menu();
+            Menu menu = new Menu();
             menu.setGambar(dataGambar.getResourceId(i,-1));
             menu.setNama(dataNama[i]);
             menu.setDeskripsi(dataDeskripsi[i]);
