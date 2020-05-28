@@ -8,63 +8,68 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
-public class MenuAdapter extends BaseAdapter {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
     private Context context;
-    private ArrayList<Menu> menus=new ArrayList<>();
+    private ArrayList<Menu> menus;
 
-    public void setMenus(ArrayList<Menu> menus) {
-        this.menus = menus;
+    public MenuAdapter(Context context, ArrayList<Menu> lsgunpla) {
+        this.context = context;
+        menus=lsgunpla;
     }
 
-    public MenuAdapter(Context context) {
-        this.context = context;
+    @NonNull
+    @Override
+    public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_menu,parent,false);
+        return new Viewholder(v);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+        Menu menubaru = menus.get(position);
+        String gambar = menubaru.getGambar();
+        String nama = menubaru.getNama();
+        String deskripsi = menubaru.getDeskripsi();
+        String spek = menubaru.getSpek();
+        String harga = menubaru.getHarga();
+        String toko = menubaru.getToko();
+
+        holder.tvnama.setText(nama);
+        holder.tvdes.setText(deskripsi);
+        Glide
+                .with(context)
+                .load(gambar)
+                .centerCrop()
+                .into(holder.image);
+
+
+    }
+
+    @Override
+    public int getItemCount() {
         return menus.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return menus.get(i);
-    }
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
+    public class Viewholder extends RecyclerView.ViewHolder{
+        public ImageView image;
+        public TextView tvnama;
+        public TextView tvdes;
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View itemView= view;
-        if (itemView==null){
-            itemView= LayoutInflater.from(context).inflate(R.layout.item_menu,viewGroup, false);
-
-        }
-
-        Viewholder viewholder = new Viewholder(itemView);
-        Menu menu= (Menu) getItem(i);
-        viewholder.bind(menu);
-        return itemView;
-    }
-    private class Viewholder{
-        private TextView tvnama;
-        private TextView tvdes;
-        private ImageView image;
-        Viewholder(View view){
+        Viewholder(@NonNull View view){
+            super(view);
+            image=view.findViewById(R.id.img_menu);
             tvnama=view.findViewById(R.id.tv_menu);
             tvdes=view.findViewById(R.id.tv_desc);
-            image=view.findViewById(R.id.img_menu);
-        }
-        void bind(Menu menu){
-            tvnama.setText(menu.getNama());
-            tvdes.setText(menu.getDeskripsi());
-            image.setImageResource(menu.getGambar());
-        }
 
+        }
 
     }
 }
