@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.AdapterView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,8 +23,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MenuAdapter.OnItemClickListener {
 
+    public static final String Extra_Nama = "nama";
+    public static final String Extra_Deskripsi = "deskripsi";
+    public static final String Extra_Gambar = "image";
 
     private MenuAdapter menuAdapter;
     private RecyclerView recyclerView;
@@ -43,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         parseJSON();
 
 
+
+
+
     }
 
     private void parseJSON() {
@@ -55,13 +64,14 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             for (int i = 0; i < jumdata; i++) {
                                 JSONObject data = response.getJSONObject(i);
-                                String gambar = data.getString("deskripsi");
-                                String name = data.getString("image");
-                                String deskripsi = data.getString("nama");
-                                menus.add(new Menu(name, deskripsi, gambar));
+                                String deskripsi = data.getString("deskripsi");
+                                String image = data.getString("image");
+                                String nama = data.getString("nama");
+                                menus.add(new Menu(image, nama, deskripsi));
                             }
                             menuAdapter = new MenuAdapter(MainActivity.this, menus);
                             recyclerView.setAdapter(menuAdapter);
+                            menuAdapter.setOnItemClickListener(MainActivity.this);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -73,6 +83,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(request);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent pindah = new Intent(MainActivity.this,DetailActivity.class);
+        Menu clickedItem = menus.get(position);
+
+        pindah.putExtra(Extra_Gambar, clickedItem.getGambar());
+        pindah.putExtra(Extra_Nama, clickedItem.getNama());
+        pindah.putExtra(Extra_Deskripsi, clickedItem.getDeskripsi());
+
+        startActivity(pindah);
     }
 }
 

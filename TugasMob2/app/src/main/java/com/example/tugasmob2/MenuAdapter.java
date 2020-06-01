@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,21 +19,29 @@ import java.util.ArrayList;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
     private Context context;
     private ArrayList<Menu> menus;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick (int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     public MenuAdapter(Context context, ArrayList<Menu> lsgunpla) {
         this.context = context;
         menus=lsgunpla;
     }
 
-    @NonNull
     @Override
-    public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_menu,parent,false);
         return new Viewholder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+    public void onBindViewHolder(Viewholder holder, int position) {
         Menu menubaru = menus.get(position);
         String gambar = menubaru.getGambar();
         String nama = menubaru.getNama();
@@ -43,6 +52,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
 
         holder.tvnama.setText(nama);
         holder.tvdes.setText(deskripsi);
+
         Glide
                 .with(context)
                 .load(gambar)
@@ -58,10 +68,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
     }
 
 
+
+
     public class Viewholder extends RecyclerView.ViewHolder{
         public ImageView image;
         public TextView tvnama;
         public TextView tvdes;
+        public TextView tvspek;
+        public TextView tvharga;
+        public TextView tvtoko;
 
         Viewholder(@NonNull View view){
             super(view);
@@ -69,6 +84,17 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
             tvnama=view.findViewById(R.id.tv_menu);
             tvdes=view.findViewById(R.id.tv_desc);
 
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
 
     }
