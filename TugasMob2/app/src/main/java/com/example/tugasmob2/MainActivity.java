@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
     public static final String Extra_Nama = "nama";
     public static final String Extra_Deskripsi = "deskripsi";
     public static final String Extra_Gambar = "image";
+    public static final String Extra_Harga = "harga";
+    public static final String Extra_Spek = "spek";
 
     private MenuAdapter menuAdapter;
     private RecyclerView recyclerView;
@@ -43,10 +48,14 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
         recyclerView = findViewById(R.id.lv_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        Button btnbeli1 = findViewById(R.id.btn_beli1);
 
         menus = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
         parseJSON();
+
+//        btnbeli1.setOnClickListener(this);
+
 
 
 
@@ -67,7 +76,9 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
                                 String deskripsi = data.getString("deskripsi");
                                 String image = data.getString("image");
                                 String nama = data.getString("nama");
-                                menus.add(new Menu(image, nama, deskripsi));
+                                String harga = data.getString("harga");
+                                String spek = data.getString("spek");
+                                menus.add(new Menu(image, nama, deskripsi, harga, spek));
                             }
                             menuAdapter = new MenuAdapter(MainActivity.this, menus);
                             recyclerView.setAdapter(menuAdapter);
@@ -85,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
         requestQueue.add(request);
     }
 
+
     @Override
     public void onItemClick(int position) {
         Intent pindah = new Intent(MainActivity.this,DetailActivity.class);
@@ -92,10 +104,26 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
 
         pindah.putExtra(Extra_Gambar, clickedItem.getGambar());
         pindah.putExtra(Extra_Nama, clickedItem.getNama());
+        pindah.putExtra(Extra_Harga, clickedItem.getHarga());
         pindah.putExtra(Extra_Deskripsi, clickedItem.getDeskripsi());
+        pindah.putExtra(Extra_Spek, clickedItem.getSpek());
 
         startActivity(pindah);
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        try{
+//            String nomerWa = "6282247831612";
+//
+//            Intent beli = new Intent(Intent.ACTION_VIEW);
+//            beli.setData(Uri.parse("http://api.whatsapp.com/send?phone="+nomerWa));
+//            startActivity(beli);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 }
 
 

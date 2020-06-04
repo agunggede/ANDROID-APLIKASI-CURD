@@ -113,7 +113,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="16sp"
-            android:text="Toko Penjual"
+            android:text="Author"
             />
         <RelativeLayout
             android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/img_toko"
-                android:text="Gundam Store"
+                android:text="Agung Gde Satria"
                 android:id="@+id/tv_toko"
                 android:textColor="@android:color/black"
                 />

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,7 +53,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
 
         holder.tvnama.setText(nama);
         holder.tvdes.setText(deskripsi);
-
+        holder.tvharga.setText(harga);
+        holder.tvspek.setText(spek);
         Glide
                 .with(context)
                 .load(gambar)
@@ -68,21 +70,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
     }
 
 
-
-
     public class Viewholder extends RecyclerView.ViewHolder{
         public ImageView image;
         public TextView tvnama;
         public TextView tvdes;
         public TextView tvspek;
         public TextView tvharga;
-        public TextView tvtoko;
+
 
         Viewholder(@NonNull View view){
             super(view);
             image=view.findViewById(R.id.img_menu);
             tvnama=view.findViewById(R.id.tv_menu);
             tvdes=view.findViewById(R.id.tv_desc);
+            tvharga=view.findViewById(R.id.tv_hargam);
+            tvspek=view.findViewById(R.id.tv_spekm);
+
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
