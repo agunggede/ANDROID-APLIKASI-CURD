@@ -6,15 +6,15 @@ public class Menu {
     private String deskripsi;
     private String spek;
     private String harga;
-    private String toko;
+    private String stok;
 
-    public Menu(String gambar, String nama, String deskripsi, String harga, String spek) {
+    public Menu(String gambar, String nama, String deskripsi, String harga, String spek, String stok) {
         this.gambar = gambar;
         this.nama = nama;
         this.deskripsi = deskripsi;
         this.spek = spek;
         this.harga = harga;
-        this.toko = toko;
+        this.stok = stok;
     }
 
     public String getGambar() {
@@ -37,8 +37,8 @@ public class Menu {
         return harga;
     }
 
-    public String getToko() {
-        return toko;
+    public String getStok() {
+        return stok;
     }
 }
 

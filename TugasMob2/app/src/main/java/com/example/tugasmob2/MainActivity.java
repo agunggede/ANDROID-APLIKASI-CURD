@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
                                 String nama = data.getString("nama");
                                 String harga = data.getString("harga");
                                 String spek = data.getString("spek");
-                                menus.add(new Menu(image, nama, deskripsi, harga, spek));
+                                String stok = data.getString("stok");
+                                menus.add(new Menu(image, nama, deskripsi, harga, spek, stok));
                             }
                             menuAdapter = new MenuAdapter(MainActivity.this, menus);
                             recyclerView.setAdapter(menuAdapter);
@@ -111,19 +112,6 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnIte
         startActivity(pindah);
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        try{
-//            String nomerWa = "6282247831612";
-//
-//            Intent beli = new Intent(Intent.ACTION_VIEW);
-//            beli.setData(Uri.parse("http://api.whatsapp.com/send?phone="+nomerWa));
-//            startActivity(beli);
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 }
 
 

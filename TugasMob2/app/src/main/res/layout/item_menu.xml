@@ -68,7 +68,7 @@
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:id="@+id/btn_beli1"
-            android:background="@android:color/holo_purple"
+            android:background="@android:color/darker_gray"
             />
 
     </LinearLayout>

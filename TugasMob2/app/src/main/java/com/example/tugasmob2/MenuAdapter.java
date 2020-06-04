@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,12 +50,13 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
         String deskripsi = menubaru.getDeskripsi();
         String spek = menubaru.getSpek();
         String harga = menubaru.getHarga();
-        String toko = menubaru.getToko();
+        String stok = menubaru.getStok();
 
         holder.tvnama.setText(nama);
         holder.tvdes.setText(deskripsi);
         holder.tvharga.setText(harga);
         holder.tvspek.setText(spek);
+        holder.btnstok.setText(stok);
         Glide
                 .with(context)
                 .load(gambar)
@@ -76,6 +78,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
         public TextView tvdes;
         public TextView tvspek;
         public TextView tvharga;
+        public Button btnstok;
 
 
         Viewholder(@NonNull View view){
@@ -85,7 +88,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.Viewholder> {
             tvdes=view.findViewById(R.id.tv_desc);
             tvharga=view.findViewById(R.id.tv_hargam);
             tvspek=view.findViewById(R.id.tv_spekm);
-
+            btnstok=view.findViewById(R.id.btn_beli1);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
